@@ -12,6 +12,8 @@ from src.logger import logging
 from src.exception import Custom_Exception
 from src.components.data_transformation import DataTransformation
 from src.components.data_transformation import DataTransformationConfig
+from src.components.model_trainer import ModelTrainerConfig
+from src.components.model_trainer import Model_Trainer
 from dataclasses import dataclass
 
 @dataclass
@@ -53,4 +55,8 @@ if __name__ == '__main__':
     train,test = obj.initiate_data_ingestion()
 
     data_transform = DataTransformation()
-    data_transform.initiate_data_transformation(train,test)
+    train_arr,test_arr,_ = data_transform.initiate_data_transformation(train,test)
+
+    model_trainer = Model_Trainer()
+    print(model_trainer.initiate_model_trainer(train_arr,test_arr))
+
