@@ -28,8 +28,8 @@ class DataTransformation():
     def get_datatransformation_object(self):
         ' This function is responsible for data transformation'
         try:
-            numerical_columns = ['reading score','writing score']
-            categorical_columns = ['gender','race/ethnicity','parental level of education','lunch','test preparation course']
+            numerical_columns = ['reading_score','writing_score']
+            categorical_columns = ['gender','race_ethnicity','parental_level_of_education','lunch','test_preparation_course']
             num_pipeline = Pipeline(
                 steps=[("imputer",SimpleImputer(strategy='median')),
                        ('scaler',StandardScaler(with_mean=False))])
@@ -45,8 +45,9 @@ class DataTransformation():
             logging.info('Categorical Columns encoding completed...')
             preprocessor = ColumnTransformer(
                 [
-                    ('numerical_pipeline',num_pipeline,numerical_columns),
-                    ('categorical_pipeline',catergorical_pipeline,categorical_columns)
+                    
+                    ('categorical_pipeline',catergorical_pipeline,categorical_columns),
+                    ('numerical_pipeline',num_pipeline,numerical_columns)
                 ]
             )
             return preprocessor
@@ -61,8 +62,8 @@ class DataTransformation():
             logging.info('Reading Train & Test Data Completed')
             logging.info('Obtaining Pre Processing Object')
             preprocessor_obj = self.get_datatransformation_object()
-            target_column = 'math score'
-            numerical_col = ['reading score','writting score']
+            target_column = 'math_score'
+            numerical_col = ['reading_score','writing_score']
             input_feature_train = train_df.drop([target_column],axis=1)
             target_train = train_df[target_column]
             input_feature_test = test_df.drop([target_column],axis=1)
